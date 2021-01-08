@@ -1,6 +1,5 @@
 import React from 'react';
 import './HeroSection.css';
-import { Button } from './Button';
 
 function HeroSection({
   lightBg,
@@ -9,7 +8,6 @@ function HeroSection({
   lightTextDesc,
   headline,
   description,
-  buttonLabel,
   img,
   alt,
   imgStart
