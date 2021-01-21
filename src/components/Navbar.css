@@ -44,28 +44,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   list-style: none;
   text-align: center;
   justify-content: end;
 }
 
-.nav-item {
-  height: 80px;
-  border-bottom: 2px solid transparent;
-}
-
 .nav-item:hover {
+  height: 80px;
   border-bottom: 2px solid #f00946;
 }
 
-.nav-links {
+.nav-item{
   color: #fff;
   display: flex;
   align-items: center;
   text-decoration: none;
   padding: 0.5rem 1rem;
   height: 100%;
+  border-bottom: 2px solid transparent;
 }
+
 
 .fa-bars {
   color: #fff;
@@ -100,24 +99,17 @@
     z-index: 1;
   }
 
-  .nav-links {
-    text-align: center;
-    padding: 2rem;
-    width: 100%;
-    display: table;
-  }
 
-  .nav-links:hover {
+  .nav-item:hover {
     color: #f00946;
     transform: scale(1.2);
     transition: all 0.3s ease;
   }
 
-  .nav-item:hover {
-    border: none;
-  }
-
   .nav-item {
+    text-align: center;
+    padding: 2rem;
+    display: table;
     width: 100%;
   }
 
