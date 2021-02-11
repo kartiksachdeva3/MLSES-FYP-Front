@@ -1,16 +1,18 @@
 import React from 'react';
 import './App.css';
-import Navbar from './components/Navbar';
-import SideMenu from './components/SideMenu';
+import { Grid } from '@material-ui/core';
+import Skeleton from './components/Skeleton/AppMenu';
+
 
 
 
 function App() {
   return (
-    <>
-    <Navbar />
-    <SideMenu />
-    </>
+    <div className="Container">
+      <Grid>
+        <Skeleton />
+      </Grid>
+    </div>
   );
 }
 
