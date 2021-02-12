@@ -8,7 +8,8 @@ export default class SignIn extends Component {
   state = {
     email: "",
     password: "",
-    isloggedin: false
+    isloggedin: false,
+    error: ""
   };
 
   handleChange = e => {
@@ -21,11 +22,20 @@ export default class SignIn extends Component {
     if(this.state.email === 'admin' && this.state.password==='abcd'){
         console.log("Authenticated")
     this.setState({isloggedin : true})
-    this.props.history.push('/dashboard')
     
-}
+    }
+    else{
+        this.setState({error: "Invalid Credentials"})
+        
+    }
   }
   render() {
+    if(this.state.isloggedin){
+        return (
+            <Redirect to='/dashboard' />
+        )
+    }
+    
     return (
       <div className="App">
         <form className="form" onSubmit={this.handlesubmit}>
@@ -48,10 +58,12 @@ export default class SignIn extends Component {
             type="password"
           />
 
-          <Button type="submit" color="primary" className="form__custom-button" onClick={this.handlesubmit}>
+          <Button type="submit" color="primary" className="form__custom-button" >
             Log in
           </Button>
+          
         </form>
+        {this.state.error && <div>{this.state.error}</div>}
       </div>
     );
   }
