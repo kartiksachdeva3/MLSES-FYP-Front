@@ -76,7 +76,7 @@ function Navbar() {
               
               <li className='nav-btn'>
                 {button ? (
-                  <Link to='/dashboard' className='btn-link'>
+                  <Link to='/login' className='btn-link'>
                     <Button buttonStyle='btn--outline'>Sign-In</Button>
                   </Link>
                 ) : (

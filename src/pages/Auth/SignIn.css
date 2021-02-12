@@ -1,28 +1,28 @@
-.LoginPage {
-    background-color: rgb(152, 230, 255);
-   
-    min-height: 100%;
-    min-height: 100vh;
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background: #637d63;
+  }
+  
+  .App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  .form {
+    max-width: 330px;
+    margin: 0 auto;
     display: flex;
-    background-size: cover;
-    align-items: center;
-    justify-content: center;
-}
-
-.divStyle {
-display: flex;
-align-items: center;
-  margin-top: -100px;
-}
-
-.panelStyle {
-    background-color: rgba(255, 255, 255, 0.5);
-    border: 0;
-    padding-left: 20px;
-    padding-right: 20px;
-    width: 300px;
-}
-
-.buttonStyle {
-    margin-bottom: 0;
-}
+    flex-direction: column;
+    background: white;
+    padding: 20px;
+    margin-top: 30px;
+  }
+  
+  .form .form__custom-button {
+    margin-top: 50px;
+  }
+  

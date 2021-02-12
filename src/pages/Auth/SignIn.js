@@ -1,37 +1,58 @@
-import React from 'react'
-import './SignIn.css'
-import { Card, Form, FormGroup, FormControl, Button } from 'react-bootstrap';
+import React, { Component } from "react";
+import "./SignIn.css";
+import CustomInput from "../../components/CustomInput/CustomInput";
+import Button from "../../components/Buttons/Button";
+import {Redirect} from 'react-router-dom'
 
-function SignIn() {
+export default class SignIn extends Component {
+  state = {
+    email: "",
+    password: "",
+    isloggedin: false
+  };
 
-   const handleFormSubmit = (e) => {
-        e.preventDefault();
+  handleChange = e => {
+    this.setState({ [e.currentTarget.id]: e.currentTarget.value });
+  };
 
-        console.log("FORM SUBMIT!");
-
-    }
-
-    return (
-        <div className='LoginPage'>
-            <div className={'divStyle'}>
-                <Card className={'panelStyle'}>
-                    <Form horizontal className="LoginForm" id="loginForm">
-                        <FormGroup controlId="formEmail">
-                            <FormControl type="email" placeholder="Email Address" />
-                        </FormGroup>
-                        <FormGroup controlId="formPassword">
-                            <FormControl type="password" placeholder="Password" />
-                        </FormGroup>
-                        <FormGroup className={'buttonStyle'} controlId="formSubmit">
-                            <Button bsStyle="primary" type="submit" onClick={handleFormSubmit}>
-                                Login
-              </Button>
-                        </FormGroup>
-                    </Form>
-                </Card>
-            </div>
-        </div>
-    )
+  handlesubmit = (event) => {
+    event.preventDefault()
+    console.log(this.state)
+    if(this.state.email === 'admin' && this.state.password==='abcd'){
+        console.log("Authenticated")
+    this.setState({isloggedin : true})
+    this.props.history.push('/dashboard')
+    
 }
+  }
+  render() {
+    return (
+      <div className="App">
+        <form className="form" onSubmit={this.handlesubmit}>
+          <CustomInput
+            labelText="Email"
+            id="email"
+            formControlProps={{
+              fullWidth: true
+            }}
+            handleChange={this.handleChange}
+            type="text"
+          />
+          <CustomInput
+            labelText="Password"
+            id="password"
+            formControlProps={{
+              fullWidth: true
+            }}
+            handleChange={this.handleChange}
+            type="password"
+          />
 
-export default SignIn
+          <Button type="submit" color="primary" className="form__custom-button" onClick={this.handlesubmit}>
+            Log in
+          </Button>
+        </form>
+      </div>
+    );
+  }
+}
