@@ -10,9 +10,12 @@ function Navbar() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
-  const handleClick = () => setClick(!click);
-  const closeMobileMenu = () => setClick(false);
 
+  const handleClick = () => setClick(!click);
+  const closeMobileMenu = () =>
+  { 
+    setClick(false);
+  }
   const showButton = () => {
     if (window.innerWidth <= 960) {
       setButton(false);
@@ -47,37 +50,26 @@ function Navbar() {
                 </Link>
               </li>
               <li className='nav-item'>
-                <Link
-                  to='/Vision'
+                <a
+                  href='#Vision'
                   className='nav-links'
-                  onClick={closeMobileMenu}
                 >
                   Vision 
-                </Link>
+                </a>
               </li>
               <li className='nav-item'>
-                <Link
-                  to='/about'
+              <a
+                  href='#About'
                   className='nav-links'
-                  onClick={closeMobileMenu}
                 >
-                  About 
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link
-                  to='/contact-us'
-                  className='nav-links'
-                  onClick={closeMobileMenu}
-                >
-                  Contact 
-                </Link>
+                  About
+                </a>
               </li>
               
               <li className='nav-btn'>
                 {button ? (
                   <Link to='/login' className='btn-link'>
-                    <Button buttonStyle='btn--outline'>Sign-In</Button>
+                    <Button buttonStyle='btn--outline'>Login</Button>
                   </Link>
                 ) : (
                   <Link to='/login' className='btn-link'>
@@ -86,7 +78,7 @@ function Navbar() {
                       buttonSize='btn--mobile'
                       onClick={closeMobileMenu}
                     >
-                      Sign-In
+                      Login
                     </Button>
                   </Link>
                 )}
