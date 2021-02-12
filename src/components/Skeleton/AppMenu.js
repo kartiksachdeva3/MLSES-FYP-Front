@@ -5,8 +5,7 @@ import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -55,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
     whiteSpace: 'nowrap',
   },
+  
   drawerOpen: {
     width: drawerWidth,
     transition: theme.transitions.create('width', {
@@ -73,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9) + 1,
     },
   },
+  
   toolbar: {
     display: 'flex',
     alignItems: 'center',
@@ -126,27 +127,28 @@ export default function Skeleton() {
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
           })}
-          style={{background: '#1c2237'}}
+          classes={{
+            paper: clsx({
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            }),
+          }}
+          style={{background: '#5B7671'}}
         >
           <Toolbar>
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={handleDrawerOpen}
+              onClick={open ? handleDrawerClose : handleDrawerOpen }
               edge="start"
-              className={clsx(classes.menuButton, {
-                [classes.hide]: open,
-              })}
             >
               <MenuIcon />
             </IconButton>
-
             <IconContext.Provider value={{ color: '#fff' }}>
-          <div className='navbar-container container'>
-            <div className='navbar-logo' onClick={closeMobileMenu}>
-              <GiWheat className='navbar-icon' />
-              MLSES
-            </div>
+            <div className='navbar-container container'>
+              <div className='navbar-logo' onClick={closeMobileMenu}>
+                <GiWheat className='navbar-icon' />MLSES
+              </div>
             <div className='menu-icon' onClick={handleClick}>
               {click ? <FaTimes /> : <FaBars />}
             </div>
@@ -173,28 +175,33 @@ export default function Skeleton() {
 
    {/* Side Menu  */}
 
-        <Drawer
+        <Drawer 
           variant="permanent"
           className={clsx(classes.drawer, {
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open,
           })}
           classes={{
-            paper: clsx({
+            paper: clsx(
+              {
               [classes.drawerOpen]: open,
               [classes.drawerClose]: !open,
+              
             }),
+    
           }}
+          style={{background: '#5B7671'}}
         >
-          <div className={classes.toolbar}>
+          {/* <div className={classes.toolbar}>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
-          </div>
+          </div> */}
           <Divider />
-          <List>
+          <div className="side-menu-container">
+          <List className="sidemenu-list">
               <ListItem button key="Fields">
-                <ListItemIcon><LocalFloristIcon/></ListItemIcon>
+                <ListItemIcon><LocalFloristIcon value={{color: "#526E3E"}}/></ListItemIcon>
                 <ListItemText primary="Fields" />
               </ListItem>
               <ListItem button key="Sensors">
@@ -202,6 +209,7 @@ export default function Skeleton() {
                   <ListItemText primary="Sensors" />
               </ListItem>
           </List>
+          </div>
         </Drawer>
       </div>
     );
