@@ -1,9 +1,10 @@
 import React from 'react'
+import AppMenu from './../../components/Skeleton/AppMenu'
 
 function Dashboard() {
     return (
         <div>
-            This is a Dashboard
+           <AppMenu/>
         </div>
     )
 }

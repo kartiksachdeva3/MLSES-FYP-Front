@@ -44,16 +44,3 @@ export default App;
 
 
 
-// This part will remove
-// import Skeleton from './components/Skeleton/AppMenu';
-
-
-// function App() {
-//   return (
-//     <div className="Container">
-//       <Grid>
-//         <Skeleton />
-//       </Grid>
-//     </div>
-//   );
-// }
