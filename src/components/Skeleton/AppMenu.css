@@ -79,7 +79,17 @@
   .menu-icon {
     display: none;
   }
-  
+  .sensor-card-layout-container{
+    display: flex;
+    /* flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+  }
+  .sensor-cards{
+    display: flex;
+    padding: 5px 5px;
+    margin: 5px 5px;
+  }
   @media screen and (max-width: 960px) {
     .NavbarItems {
       position: relative;

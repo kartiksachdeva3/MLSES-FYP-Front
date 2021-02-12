@@ -5,7 +5,8 @@ import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -21,7 +22,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
 import './AppMenu.css'
-
+import SensorCardlay from '../ContentContainer/Sensors'
+import SensorData from '../../data/sensordummy.json'
+import Grid from '@material-ui/core/Grid'
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -101,6 +104,8 @@ export default function Skeleton() {
     setOpen(false);
   };
     const [click, setClick] = useState(false);
+    
+  // eslint-disable-next-line  
   const [button, setButton] = useState(true);
   
   const handleClick = () => setClick(!click);
@@ -113,6 +118,10 @@ export default function Skeleton() {
       setButton(true);
     }
   };
+ 
+  //  <div ><SensorCardlay  name={item.name} mlevel0={item.mlevel0} mlevel1={item.mlevel1} mlevel2={item.mlevel2} mlevel3={item.mlevel3} status="On" epoch="2021-Feb-12 13:11" />
+  // </div>
+  //   <div>{JSON.stringify(item.name)}</div>
   
   useEffect(() => {
     showButton();
@@ -167,7 +176,7 @@ export default function Skeleton() {
               </li>
             </ul>
           </div>
-      </IconContext.Provider>
+          </IconContext.Provider>
           </Toolbar>
           <div>
     </div>
@@ -192,11 +201,11 @@ export default function Skeleton() {
           }}
           style={{background: '#5B7671'}}
         >
-          {/* <div className={classes.toolbar}>
+          <div className={classes.toolbar}>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
-          </div> */}
+          </div>
           <Divider />
           <div className="side-menu-container">
           <List className="sidemenu-list">
@@ -211,6 +220,18 @@ export default function Skeleton() {
           </List>
           </div>
         </Drawer>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Grid container spacing={3}>
+            {SensorData.map((item,key) =>{
+              return (
+                <div key={key} className="sensor-cards">
+                  <SensorCardlay  data={item} /> 
+                </div>
+              )
+            })}
+            </Grid>
+        </main>
       </div>
     );
   }
