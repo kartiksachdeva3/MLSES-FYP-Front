@@ -1,49 +1,44 @@
 import React, { Component } from "react";
-import "./SignIn.css";
+import style from "./SignIn.module.css";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import Button from "../../components/Buttons/Button";
-import {Redirect} from 'react-router-dom'
+import { Redirect } from "react-router-dom";
 
 export default class SignIn extends Component {
   state = {
     email: "",
     password: "",
     isloggedin: false,
-    error: ""
+    error: "",
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ [e.currentTarget.id]: e.currentTarget.value });
   };
 
   handlesubmit = (event) => {
-    event.preventDefault()
-    console.log(this.state)
-    if(this.state.email === 'admin' && this.state.password==='abcd'){
-        console.log("Authenticated")
-    this.setState({isloggedin : true})
-    
+    event.preventDefault();
+    console.log(this.state);
+    if (this.state.email === "admin" && this.state.password === "abcd") {
+      console.log("Authenticated");
+      this.setState({ isloggedin: true });
+    } else {
+      this.setState({ error: "Invalid Credentials" });
     }
-    else{
-        this.setState({error: "Invalid Credentials"})
-        
-    }
-  }
+  };
   render() {
-    if(this.state.isloggedin){
-        return (
-            <Redirect to='/dashboard' />
-        )
+    if (this.state.isloggedin) {
+      return <Redirect to="/dashboard" />;
     }
-    
+
     return (
-      <div className="App">
-        <form className="form" onSubmit={this.handlesubmit}>
+      <div className={style.App}>
+        <form className={style.form} onSubmit={this.handlesubmit}>
           <CustomInput
             labelText="Email"
             id="email"
             formControlProps={{
-              fullWidth: true
+              fullWidth: true,
             }}
             handleChange={this.handleChange}
             type="text"
@@ -52,16 +47,15 @@ export default class SignIn extends Component {
             labelText="Password"
             id="password"
             formControlProps={{
-              fullWidth: true
+              fullWidth: true,
             }}
             handleChange={this.handleChange}
             type="password"
           />
 
-          <Button type="submit" color="primary" className="form__custom-button" >
+          <Button type="submit" color="primary" className="form__custom-button">
             Log in
           </Button>
-          
         </form>
         {this.state.error && <div>{this.state.error}</div>}
       </div>

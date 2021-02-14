@@ -63,7 +63,7 @@
 
 .btn--wide:hover {
   color: #fff;
-  background-color: #D5C2A5;
+  background-color: #d5c2a5;
   transition: all 0.2s ease-out;
 }
 
@@ -75,6 +75,7 @@
   padding: 8px 16px;
   height: 100%;
   width: 100%;
+  color: white;
 }
 
 .blue {
