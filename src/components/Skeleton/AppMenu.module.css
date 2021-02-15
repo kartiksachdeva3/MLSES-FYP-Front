@@ -74,9 +74,18 @@
     align-items: center; */
 }
 .sensorCards {
-  display: flex;
   padding: 5px 5px;
   margin: 5px 5px;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 0;
+}
+.fieldsCards {
+  padding: 5px 5px;
+  margin: 5px 5px;
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 1;
 }
 @media screen and (max-width: 960px) {
   .NavbarItems {

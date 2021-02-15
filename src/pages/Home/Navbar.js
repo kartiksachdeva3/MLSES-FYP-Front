@@ -1,31 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "./Button";
+import React, { useState} from "react";
+import {withStyles, makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import {teal } from '@material-ui/core/colors';
 import { Link } from "react-router-dom";
 import style from './Navbar.module.css';
 import { GiWheat } from "react-icons/gi";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 
+const ColorButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(teal[500]),
+    backgroundColor: teal[500],
+    '&:hover': {
+      backgroundColor: teal[700],
+    },
+  },
+}))(Button);
+
+const useStyles = makeStyles((theme) => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+}));
+
+
 function Navbar() {
+
+  const classes = useStyles();
   const [click, setClick] = useState(false);
-  const [button, setButton] = useState(true);
+ 
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => {
     setClick(false);
   };
-  const showButton = () => {
-    if (window.innerWidth <= 960) {
-      setButton(false);
-    } else {
-      setButton(true);
-    }
-  };
+  
 
-  useEffect(() => {
-    showButton();
-    window.addEventListener("resize", showButton);
-  }, []);
+
 
   return (
     <>
@@ -57,21 +69,11 @@ function Navbar() {
               </li>
 
               <li className={style.navBtn}>
-                {button ? (
-                  <Link to="/login" className={style.btnLink}>
-                    <Button buttonStyle="btn--outline">Login</Button>
-                  </Link>
-                ) : (
-                  <Link to="/login" className={style.btnLink}>
-                    <Button
-                      buttonStyle="btn--outline"
-                      buttonSize="btn--mobile"
-                      onClick={closeMobileMenu}
-                    >
-                      Login
-                    </Button>
-                  </Link>
-                )}
+              <Link to= "/login" ><ColorButton  variant="contained" color="primary" className={classes.margin}>
+                Login
+              </ColorButton>
+              </Link>
+              
               </li>
             </ul>
           </div>

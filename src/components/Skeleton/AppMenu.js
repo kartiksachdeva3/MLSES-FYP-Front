@@ -22,9 +22,13 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
 import style from "./AppMenu.module.css";
+import Description from "../ContentContainer/Description";
 import SensorCardlay from "../ContentContainer/Sensors";
 import SensorData from "../../data/sensordummy.json";
+import FieldsCardlay from "../ContentContainer/Fields";
+import FieldsData from "../../data/fieldsdummy.json";
 import Grid from "@material-ui/core/Grid";
+
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -91,7 +95,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 export default function Skeleton() {
+
+  const [visible, setVisible]= useState("Description");
+ 
+
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -127,111 +137,129 @@ export default function Skeleton() {
     showButton();
     window.addEventListener("resize", showButton);
   }, []);
+
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          }),
-        }}
-        style={{ background: "#5B7671" }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={open ? handleDrawerClose : handleDrawerOpen}
-            edge="start"
-          >
-            <MenuIcon />
-          </IconButton>
-          <IconContext.Provider value={{ color: "#fff" }}>
-            <div className={ `${style.navbarContainer} ${style.container} `}>
-              <div className={style.navbarLogo} onClick={closeMobileMenu}>
-                <GiWheat className={style.navbarIcon} />
-                MLSES
-              </div>
-              <div className={style.menuIcon} onClick={handleClick}>
-                {click ? <FaTimes /> : <FaBars />}
-              </div>
-              <ul className={click ? `${style.navMenu} ${style.active} ` : style.navMenu } >
-                <li className={style.navItem} onClick={closeMobileMenu}>
-                  <BiUserCircle className={style.navbarIcon} />
-                  User
-                </li>
-                <li className={style.navItem} onClick={closeMobileMenu}>
-                  <AiFillSetting className={style.navbarIcon} />
-                  Setting
-                </li>
-              </ul>
-            </div>
-          </IconContext.Provider>
-        </Toolbar>
-        <div></div>
-      </AppBar>
-
-      {/* Side Menu  */}
-
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          }),
-        }}
-        style={{ background: "#5B7671" }}
-      >
-        <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton>
-        </div>
-        <Divider />
-        <div className="side-menu-container">
-          <List className="sidemenu-list">
-            <ListItem button key="Fields">
-              <ListItemIcon>
-                <LocalFloristIcon value={{ color: "#526E3E" }} />
-              </ListItemIcon>
-              <ListItemText primary="Fields" />
-            </ListItem>
-            <ListItem button key="Sensors">
-              <ListItemIcon>
-                <MemoryIcon />
-              </ListItemIcon>
-              <ListItemText primary="Sensors" />
-            </ListItem>
-          </List>
-        </div>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Grid container spacing={3}>
-          {SensorData.map((item, key) => {
-            return (
-              <div key={key} className="sensor-cards">
-                <SensorCardlay data={item} />
-              </div>
-            );
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: open,
           })}
+          classes={{
+            paper: clsx({
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            }),
+          }}
+          style={{ background: "#5B7671" }}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={open ? handleDrawerClose : handleDrawerOpen}
+              edge="start"
+            >
+              <MenuIcon />
+            </IconButton>
+            <IconContext.Provider value={{ color: "#fff" }}>
+              <div className={ `${style.navbarContainer} ${style.container} `}>
+                <div className={style.navbarLogo} onClick={closeMobileMenu}>
+                  <GiWheat onClick={() => setVisible("Description")} className={style.navbarIcon} />
+                  MLSMES
+                </div>
+                <div className={style.menuIcon} onClick={handleClick}>
+                  {click ? <FaTimes /> : <FaBars />}
+                </div>
+                <ul className={click ? `${style.navMenu} ${style.active} ` : style.navMenu } >
+                  <li className={style.navItem} onClick={closeMobileMenu}>
+                    <BiUserCircle className={style.navbarIcon} />
+                    User
+                  </li>
+                  <li className={style.navItem} onClick={closeMobileMenu}>
+                    <AiFillSetting className={style.navbarIcon} />
+                    Setting
+                  </li>
+                </ul>
+              </div>
+            </IconContext.Provider>
+          </Toolbar>
+          <div></div>
+        </AppBar>
+  
+        {/* Side Menu  */}
+  
+        <Drawer
+          variant="permanent"
+          className={clsx(classes.drawer, {
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open,
+          })}
+          classes={{
+            paper: clsx({
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            }),
+          }}
+          style={{ background: "#5B7671" }}
+        >
+          <div className={classes.toolbar}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </div>
+          <Divider />
+          <div className="side-menu-container">
+            <List className="sidemenu-list">
+              <ListItem button key="Fields">
+                <ListItemIcon>
+                  <LocalFloristIcon onClick={() => setVisible("Fields")}/>
+                </ListItemIcon>
+                <ListItemText primary="Fields" />
+              </ListItem>
+              <ListItem button key="Sensors">
+                <ListItemIcon>
+                  <MemoryIcon onClick={() => setVisible("Sensors")} />
+                </ListItemIcon>
+                <ListItemText primary="Sensors" />
+              </ListItem>
+            </List>
+          </div>
+        </Drawer>
+       
+        
+        <main className={classes.content}>
+          <div className={classes.toolbar}/>
+              {visible === "Description" && <Description/>}
+          { visible === "Fields" &&
+           <Grid container spacing={3}>
+            {FieldsData.map((item, key) => {
+              return (
+                <div key={key} className="fields-cards">
+                  <FieldsCardlay data={item} />
+                </div>
+              );
+            })
+            }
+          </Grid>
+          }
+          {visible === "Sensors" && 
+            <Grid container spacing= {3}>
+              {SensorData.map((item, key) => {
+              return (
+                <div key={key} className="sensor-cards">
+                  <SensorCardlay data={item} />
+                </div>
+              );
+            })}
         </Grid>
-      </main>
-    </div>
-  );
-}
+          }
+        </main>
+      </div>
+    );  
+} 
