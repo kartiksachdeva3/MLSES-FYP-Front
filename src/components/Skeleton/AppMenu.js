@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,8 +15,8 @@ import LocalFloristIcon from "@material-ui/icons/LocalFlorist";
 import MemoryIcon from "@material-ui/icons/Memory";
 import React, { useState, useEffect } from "react";
 import { GiWheat } from "react-icons/gi";
-import { BiUserCircle } from "react-icons/bi";
-import { AiFillSetting } from "react-icons/ai";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { FaBars, FaTimes } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import AppBar from "@material-ui/core/AppBar";
@@ -28,6 +29,10 @@ import SensorData from "../../data/sensordummy.json";
 import FieldsCardlay from "../ContentContainer/Fields";
 import FieldsData from "../../data/fieldsdummy.json";
 import Grid from "@material-ui/core/Grid";
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Fade from '@material-ui/core/Fade';
+import Button from '@material-ui/core/Button';
 
 
 const drawerWidth = 240;
@@ -93,6 +98,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  button: {
+    margin: theme.spacing(1),
+  },
 }));
 
 
@@ -100,6 +108,17 @@ const useStyles = makeStyles((theme) => ({
 export default function Skeleton() {
 
   const [visible, setVisible]= useState("Description");
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const openn = Boolean(anchorEl);
+
+  const doClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const doClose = () => {
+    setAnchorEl(null);
+  };
  
 
   const classes = useStyles();
@@ -172,16 +191,39 @@ export default function Skeleton() {
                 <div className={style.menuIcon} onClick={handleClick}>
                   {click ? <FaTimes /> : <FaBars />}
                 </div>
-                <ul className={click ? `${style.navMenu} ${style.active} ` : style.navMenu } >
-                  <li className={style.navItem} onClick={closeMobileMenu}>
-                    <BiUserCircle className={style.navbarIcon} />
-                    User
-                  </li>
-                  <li className={style.navItem} onClick={closeMobileMenu}>
-                    <AiFillSetting className={style.navbarIcon} />
-                    Setting
-                  </li>
-                </ul>
+                  
+                  <div className={click ? `${style.navMenu} ${style.active} ` : style.navMenu } >
+                     
+                    <Button aria-controls="fade-menu" aria-haspopup="true" onClick={doClick} className={style.navItem} 
+                          variant="contained"
+                          color="primary"
+                          className={classes.button}
+                          startIcon={<AccountCircleIcon />}
+                        >
+                          User
+                        </Button>
+                        <Menu
+                        id="fade-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={openn}
+                        onClose={doClose}
+                        TransitionComponent={Fade}
+                        >
+                        <MenuItem onClick={doClose}>Profile</MenuItem>
+                        <MenuItem onClick={doClose}>My account</MenuItem>
+                        <Link to="/login"><MenuItem onClick={doClose}>Logout</MenuItem></Link>
+                      </Menu> 
+                    
+                        <Button className={style.navItem} onClick={closeMobileMenu}
+                          variant="contained"
+                          color="primary"
+                          className={classes.button}
+                          startIcon={<SettingsIcon />}
+                        >
+                          Settings
+                        </Button>
+                  </div>
               </div>
             </IconContext.Provider>
           </Toolbar>
