@@ -1,48 +1,47 @@
-.home__hero-section {
-    color: #fff;
-    padding: 160px 0;
+.homeheroSection {
+    padding: 100px 20px 10px 10px;
   }
   
-  .home__hero-row {
+  .homeheroRow {
     align-items: center;
   }
   
   .row {
     display: flex;
-    margin-right: -15px;
-    margin-bottom: -15px;
-    margin-left: -15px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
     flex-wrap: wrap;
-    align-content: stretch;
+    align-content: center;
   }
   
   .col {
-    margin-bottom: 15px;
-    padding-right: 15px;
-    padding-left: 15px;
-    flex: 1;
+    margin-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
     max-width: 50%;
     flex-basis: 50%;
   }
   
-  .home__hero-text-wrapper {
-    max-width: 540px;
+  .homeheroTextwrapper {
+    max-width: 500px;
     padding-top: 0;
-    padding-bottom: 60px;
+    padding-bottom: 30px;
+    padding-left: 20px;
   }
   
-  .top-line {
+  .topLine {
     color: #D5C2A5;
     font-size: 16px;
     line-height: 16px;
     font-weight: 700;
     letter-spacing: 1.4px;
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
   
   .heading {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     font-size: 48px;
     line-height: 1.1;
     font-weight: 600;
@@ -52,23 +51,27 @@
   .dark {
     color: #526E3E;
   }
+
+  .lightBg{
+    background-color: white;
+  }
   
   .darkBg {
     background-color: #526E3E;
   }
   
-  .home__hero-subtitle {
+  .homeheroSubtitle {
     max-width: 440px;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
     font-size: 18px;
     line-height: 24px;
   }
   
-  .home__hero-img-wrapper {
+  .homeheroImgwrapper {
     max-width: 555px;
   }
   
-  .home__hero-img {
+  .homeheroImg {
     max-width: 95%;
     margin-top: 0;
     margin-right: 0;
@@ -85,13 +88,13 @@
   
   @media screen and (max-width: 991px) {
     .container {
-      padding-right: 30px;
-      padding-left: 30px;
+      padding-right: 70px;
+      padding-left: 70px;
     }
   }
   
   @media screen and (max-width: 768px) {
-    .home__hero-text-wrapper {
+    .homeheroTextwrapper {
       padding-bottom: 65px;
     }
   

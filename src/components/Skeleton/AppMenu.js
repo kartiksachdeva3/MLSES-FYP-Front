@@ -17,7 +17,6 @@ import React, { useState, useEffect } from "react";
 import { GiWheat } from "react-icons/gi";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { FaBars, FaTimes } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -132,30 +131,7 @@ export default function Skeleton() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const [click, setClick] = useState(false);
-
-  // eslint-disable-next-line
-  const [button, setButton] = useState(true);
-
-  const handleClick = () => setClick(!click);
-  const closeMobileMenu = () => setClick(false);
-
-  const showButton = () => {
-    if (window.innerWidth <= 960) {
-      setButton(false);
-    } else {
-      setButton(true);
-    }
-  };
-
-  //  <div ><SensorCardlay  name={item.name} mlevel0={item.mlevel0} mlevel1={item.mlevel1} mlevel2={item.mlevel2} mlevel3={item.mlevel3} status="On" epoch="2021-Feb-12 13:11" />
-  // </div>
-  //   <div>{JSON.stringify(item.name)}</div>
-
-  useEffect(() => {
-    showButton();
-    window.addEventListener("resize", showButton);
-  }, []);
+  
 
   return (
       <div className={classes.root}>
@@ -171,7 +147,7 @@ export default function Skeleton() {
               [classes.drawerClose]: !open,
             }),
           }}
-          style={{ background: "#5B7671" }}
+          style={{ background: "#14de97" }}
         >
           <Toolbar>
             <IconButton
@@ -184,15 +160,13 @@ export default function Skeleton() {
             </IconButton>
             <IconContext.Provider value={{ color: "#fff" }}>
               <div className={ `${style.navbarContainer} ${style.container} `}>
-                <div className={style.navbarLogo} onClick={closeMobileMenu}>
-                  <GiWheat onClick={() => setVisible("Description")} className={style.navbarIcon} />
+                <div className={style.navbarLogo} onClick={() => setVisible("Description")} >
+                  <GiWheat  className={style.navbarIcon} />
                   MLSMES
                 </div>
-                <div className={style.menuIcon} onClick={handleClick}>
-                  {click ? <FaTimes /> : <FaBars />}
-                </div>
+                
                   
-                  <div className={click ? `${style.navMenu} ${style.active} ` : style.navMenu } >
+                  <div className={style.navMenu} >
                      
                     <Button aria-controls="fade-menu" aria-haspopup="true" onClick={doClick} className={style.navItem} 
                           variant="contained"
@@ -215,7 +189,7 @@ export default function Skeleton() {
                         <Link to="/login"><MenuItem onClick={doClose}>Logout</MenuItem></Link>
                       </Menu> 
                     
-                        <Button className={style.navItem} onClick={closeMobileMenu}
+                        <Button className={style.navItem}
                           variant="contained"
                           color="primary"
                           className={classes.button}
@@ -258,15 +232,15 @@ export default function Skeleton() {
           <Divider />
           <div className="side-menu-container">
             <List className="sidemenu-list">
-              <ListItem button key="Fields">
+              <ListItem button key="Fields" onClick={() => setVisible("Fields")}>
                 <ListItemIcon>
-                  <LocalFloristIcon onClick={() => setVisible("Fields")}/>
+                  <LocalFloristIcon />
                 </ListItemIcon>
                 <ListItemText primary="Fields" />
               </ListItem>
-              <ListItem button key="Sensors">
+              <ListItem button key="Sensors" onClick={() => setVisible("Sensors")}>
                 <ListItemIcon>
-                  <MemoryIcon onClick={() => setVisible("Sensors")} />
+                  <MemoryIcon  />
                 </ListItemIcon>
                 <ListItemText primary="Sensors" />
               </ListItem>
@@ -282,7 +256,7 @@ export default function Skeleton() {
            <Grid container spacing={3}>
             {FieldsData.map((item, key) => {
               return (
-                <div key={key} className="fields-cards">
+                <div key={key} className={style.fieldsCards}>
                   <FieldsCardlay data={item} />
                 </div>
               );
@@ -294,7 +268,7 @@ export default function Skeleton() {
             <Grid container spacing= {3}>
               {SensorData.map((item, key) => {
               return (
-                <div key={key} className="sensor-cards">
+                <div key={key} className={style.sensorCards}>
                   <SensorCardlay data={item} />
                 </div>
               );

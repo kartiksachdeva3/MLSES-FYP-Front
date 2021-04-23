@@ -1,13 +1,14 @@
 import React from "react";
-import style from "./Button.module.css";
+import  style from './Button.module.css';
 
-const STYLES = ["btnPrimary", "btnOutline"];
 
-const SIZES = ["btnMedium", "btnLarge", "btnMobile", "btnWide"];
+const STYLES = [`${style.btnPrimary} ${style.btnOutline}`];
 
-const COLOR = ["primary", "blue", "red", "green"];
+const SIZES = [`${style.btnMedium} ${style.btnLarge} ${style.btnMobile} ${style.btnWide}`];
 
-export const Button = ({
+const COLOR = [`${style.primary} ${style.blue} ${style.red} ${style.green}`];
+
+export const Buttons = ({
   children,
   type,
   onClick,

@@ -53,7 +53,7 @@ export default class SignIn extends Component {
             type="password"
           />
 
-          <Button type="submit" color="primary" className="form__custom-button">
+          <Button type="submit" color="primary" className={style.formcustomButton}>
             Log in
           </Button>
         </form>

@@ -1,7 +1,7 @@
 export const homeObjOne = {
   lightBg: false,
-  lightText: true,
-  lightTextDesc: true,
+  lightText: false,
+  lightTextDesc: false,
   topLine: "MLSMES",
   headline: "Multi Level Soil Moisture Estimation System",
   description:
@@ -13,8 +13,8 @@ export const homeObjOne = {
 
 export const homeObjTwo = {
   lightBg: true,
-  lightText: false,
-  lightTextDesc: false,
+  lightText: true,
+  lightTextDesc: true,
   topLine: "Vision",
   headline: "Advancement in the agriculture sector",
   description:
@@ -26,8 +26,8 @@ export const homeObjTwo = {
 
 export const homeObjThree = {
   lightBg: false,
-  lightText: true,
-  lightTextDesc: true,
+  lightText: false,
+  lightTextDesc: false,
   topLine: "About",
   headline: "MLSMES- Advance agriculture related product",
   description:

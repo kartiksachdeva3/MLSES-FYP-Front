@@ -1,5 +1,5 @@
 .navbar {
-  background: #526e3e;
+  background: #2e5512;
   height: 80px;
   display: flex;
   justify-content: center;
@@ -55,7 +55,7 @@
 }
 
 .navItem:hover {
-  border-bottom: 2px solid #d5c2a5;
+  border-bottom: 2px solid #f00946;
 }
 
 .navLinks {
@@ -85,7 +85,7 @@
   color: white;
 }
 @media screen and (max-width: 960px) {
-  .NavbarItems {
+  .navbarItems {
     position: relative;
   }
 

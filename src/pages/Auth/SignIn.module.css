@@ -4,7 +4,7 @@
 }
 
 body {
-  background: #637d63;
+  background: white;
 }
 
 .App {
@@ -22,6 +22,6 @@ body {
   margin-top: 30px;
 }
 
-.form .form__custom-button {
+.form .formcustomButton {
   margin-top: 50px;
 }

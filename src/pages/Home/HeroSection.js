@@ -1,5 +1,6 @@
+
 import React from "react";
-import "./HeroSection.css";
+import style from "./HeroSection.module.css";
 
 function HeroSection({
   lightBg,
@@ -14,39 +15,40 @@ function HeroSection({
 }) {
   return (
     <>
+      <div className = {lightBg ? style.lightBg : style.darkBg}>
       <div
-        className={lightBg ? "home__hero-section" : "home__hero-section darkBg"}
-      >
-        <div className="container">
+        className={style.homeheroSection}>
+        
+        <div className={style.container}>
+          
           <div
-            className="row home__hero-row"
+            className={`${style.row}  ${style.homeheroRow}`}
             style={{
               display: "flex",
               flexDirection: imgStart === "start" ? "row-reverse" : "row",
             }}
           >
-            <div className="col">
-              <div className="home__hero-text-wrapper">
-                <div className="top-line">{topLine}</div>
-                <h1 className={lightText ? "heading" : "heading dark"}>
+            <div className={style.col}>
+              <div className={style.homeheroTextwrapper}>
+                <div className={style.topLine}>{topLine}</div>
+                <h1 className={lightText ?`${style.heading} ${style.dark} ` : style.heading}>
                   {headline}
                 </h1>
                 <p
                   className={
                     lightTextDesc
-                      ? "home__hero-subtitle"
-                      : "home__hero-subtitle dark"
-                  }
+                      ? `${style.homeheroSubtitle} ${style.dark}` : style.homeheroSubtitle}
                 >
                   {description}
                 </p>
               </div>
             </div>
-            <div className="col">
-              <div className="home__hero-img-wrapper">
-                <img src={img} alt={alt} className="home__hero-img" />
+            <div className={style.col}>
+              <div className={style.homeheroImgwrapper}>
+                <img src={img} alt={alt} className={style.homeheroImg} />
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>

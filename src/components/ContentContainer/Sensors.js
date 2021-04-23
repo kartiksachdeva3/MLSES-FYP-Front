@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
     padding: "20px 20px",
-    background: "#BFCEC2",
+    background: "#0cedc8",
   },
   media: {
     height: 0,
@@ -82,7 +82,7 @@ const SensorCardlay = ({ data }) => {
           <li> Level 3 : {data.mlevel3}</li>
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
+      {/* <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
@@ -102,7 +102,7 @@ const SensorCardlay = ({ data }) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent></CardContent>
-      </Collapse>
+      </Collapse> */}
     </Card>
   );
 };
