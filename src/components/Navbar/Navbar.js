@@ -1,24 +1,12 @@
 import React, { useState, useEffect} from "react";
-import {withStyles, makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import {teal } from '@material-ui/core/colors';
+import { makeStyles } from '@material-ui/core/styles';
+
 import { Link } from "react-router-dom";
 import style from './Navbar.module.css';
 import { GiWheat } from "react-icons/gi";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
-
-
-const ColorButton = withStyles((theme) => ({
-  root: {
-    color: theme.palette.getContrastText(teal[500]),
-    backgroundColor: teal[500],
-    '&:hover': {
-      backgroundColor: teal[700],
-    },
-  },
-}))(Button);
-
+import GreenButton from '../Buttons/Button'
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
@@ -79,9 +67,7 @@ function Navbar() {
               </li>
 
               <li className={style.navBtn}>
-              <Link to= "/login" ><ColorButton  variant="contained" color="primary" className={classes.margin}>
-                Login
-              </ColorButton>
+              <Link to= "/login" ><GreenButton text="Login" color="inherit"/>
               </Link>
               
               </li>

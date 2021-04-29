@@ -4,12 +4,23 @@ import CustomInput from "../../components/CustomInput/CustomInput";
 import GreenButton from "../../components/Buttons/Button";
 import { Redirect } from "react-router-dom";
 
-export default class SignIn extends Component {
+export default class SignUp extends Component {
   state = {
     email: "",
     password: "",
     isloggedin: false,
     error: "",
+  };
+
+  handlePasswordChange = event => {
+    this.setState({
+      password: event.target.value,
+    });
+  };
+  handleConfirmPassword = event => {
+    if (event.handleConfirmPassword !== event.handlePasswordChange) {
+      message.error('error');
+    }
   };
 
   handleChange = (e) => {
@@ -34,6 +45,15 @@ export default class SignIn extends Component {
     return (
       <div className={style.App}>
         <form className={style.form} onSubmit={this.handlesubmit}>
+        <CustomInput
+            labelText="Name"
+            id="Name"
+            formControlProps={{
+              fullWidth: true,
+            }}
+            handleChange={this.handleChange}
+            type="text"
+          />
           <CustomInput
             labelText="Email"
             id="email"
@@ -45,15 +65,25 @@ export default class SignIn extends Component {
           />
           <CustomInput
             labelText="Password"
-            id="password"
+            id="password1"
             formControlProps={{
               fullWidth: true,
             }}
-            handleChange={this.handleChange}
+
+            handleChange={this.handlePasswordChange }
+            type="password"
+          />
+          <CustomInput
+            labelText="Confirm Password"
+            id="password2"
+            formControlProps={{
+              fullWidth: true,
+            }}
+            handleChange={this.handleConfirmPassword}
             type="password"
           />
 
-          <GreenButton text="Log in" type="submit" />
+          <GreenButton text="Sign Up" type="submit" />
             
         </form>
         {this.state.error && <div>{this.state.error}</div>}

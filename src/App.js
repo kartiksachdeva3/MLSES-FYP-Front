@@ -4,7 +4,7 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignIn from "./pages/Auth/SignIn";
 import NoMatch from "./pages/NoMatch/NoMatch";
-import Navbar from "./pages/Home/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 
 import HomePage from "./pages/Home/Home";
 import Dashboard from "./components/Skeleton/AppMenu";

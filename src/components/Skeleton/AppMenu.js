@@ -13,10 +13,10 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import LocalFloristIcon from "@material-ui/icons/LocalFlorist";
 import MemoryIcon from "@material-ui/icons/Memory";
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { GiWheat } from "react-icons/gi";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import SettingsIcon from '@material-ui/icons/Settings';
+
 import { IconContext } from "react-icons/lib";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -31,7 +31,7 @@ import Grid from "@material-ui/core/Grid";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
-import Button from '@material-ui/core/Button';
+import GreenButton from '../Buttons/Button';
 
 
 const drawerWidth = 240;
@@ -147,7 +147,7 @@ export default function Skeleton() {
               [classes.drawerClose]: !open,
             }),
           }}
-          style={{ background: "#14de97" }}
+          style={{ background: "#526e3e" }}
         >
           <Toolbar>
             <IconButton
@@ -168,15 +168,12 @@ export default function Skeleton() {
                   
                   <div className={style.navMenu} >
                      
-                    <Button aria-controls="fade-menu" aria-haspopup="true" onClick={doClick} className={style.navItem} 
-                          variant="contained"
-                          color="primary"
-                          className={classes.button}
+                    <GreenButton 
+                          onClick={doClick}
                           startIcon={<AccountCircleIcon />}
-                        >
-                          User
-                        </Button>
-                        <Menu
+                          text={"User"}
+                    />
+                    <Menu
                         id="fade-menu"
                         anchorEl={anchorEl}
                         keepMounted
@@ -186,17 +183,17 @@ export default function Skeleton() {
                         >
                         <MenuItem onClick={doClose}>Profile</MenuItem>
                         <MenuItem onClick={doClose}>My account</MenuItem>
-                        <Link to="/login"><MenuItem onClick={doClose}>Logout</MenuItem></Link>
+                        <Link to="/login" ><MenuItem className={style.menuLink} onClick={doClose}>Logout</MenuItem></Link>
                       </Menu> 
-                    
-                        <Button className={style.navItem}
+{/*                     
+                        <GreenButton className={style.navItem}
                           variant="contained"
                           color="primary"
                           className={classes.button}
                           startIcon={<SettingsIcon />}
                         >
                           Settings
-                        </Button>
+                        </GreenButton> */}
                   </div>
               </div>
             </IconContext.Provider>
@@ -230,17 +227,17 @@ export default function Skeleton() {
             </IconButton>
           </div>
           <Divider />
-          <div className="side-menu-container">
-            <List className="sidemenu-list">
+          <div className={style.sidemenuContainer}>
+            <List >
               <ListItem button key="Fields" onClick={() => setVisible("Fields")}>
                 <ListItemIcon>
-                  <LocalFloristIcon />
+                  <LocalFloristIcon style={{color:"#526e3e"}}/>
                 </ListItemIcon>
                 <ListItemText primary="Fields" />
               </ListItem>
               <ListItem button key="Sensors" onClick={() => setVisible("Sensors")}>
                 <ListItemIcon>
-                  <MemoryIcon  />
+                  <MemoryIcon style={{color:"#526e3e"}} />
                 </ListItemIcon>
                 <ListItemText primary="Sensors" />
               </ListItem>

@@ -1,5 +1,5 @@
 .navbar {
-  background: #2e5512;
+  background: #526e3e;
   height: 80px;
   display: flex;
   justify-content: center;
@@ -35,7 +35,12 @@
   display: flex;
   align-items: center;
 }
-
+.navbarLogo:hover {
+  color: honeydew;
+  text-decoration: none;
+  transform: scale(1.05);
+  transition: all 0.1s ease;
+}
 .navbarIcon {
   margin-right: 0.5rem;
 }
@@ -46,7 +51,6 @@
   justify-content: center;
   list-style: none;
   text-align: center;
-  justify-content: end;
 }
 
 .navItem {
@@ -55,7 +59,9 @@
 }
 
 .navItem:hover {
-  border-bottom: 2px solid #f00946;
+  transform: scale(1.1);
+  transition: all 0.2s ease;
+  border-bottom: 2px solid greenyellow;
 }
 
 .navLinks {
@@ -65,6 +71,10 @@
   text-decoration: none;
   padding: 0.5rem 1rem;
   height: 100%;
+}
+.navLinks:hover {
+  color: honeydew;
+  text-decoration: none;
 }
 
 .faBars {
