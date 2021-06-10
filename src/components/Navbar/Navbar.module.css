@@ -111,25 +111,34 @@
     transition: all 0.5s ease;
   }
 
-  .navMenu:active {
-    background: #1c2237;
+  .navMenuActive {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 40vh;
+    position: absolute;
+    top: 60px;
+    background: transparent;
     left: 0;
-    opacity: 1;
+    opacity: 2;
     transition: all 0.6s ease;
-    z-index: 1;
+    z-index: -1;
   }
 
   .navLinks {
-    text-align: center;
-    padding: 2rem;
-    width: 100%;
+    color: #fff;
     display: table;
+    align-items: center;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    height: 100%;
+    text-align: center;
+    width: 100%;
   }
 
   .navLinks:hover {
-    color: #f00946;
-    transform: scale(1.2);
-    transition: all 0.3s ease;
+    color: honeydew;
+    text-decoration: none;
   }
 
   .navItem:hover {
@@ -144,7 +153,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    transform: translate(25%, 50%);
+    transform: scale(1.05);
   }
 
   .menuIcon {

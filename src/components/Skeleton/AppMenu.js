@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
+import { Redirect , useHistory } from "react-router-dom";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -8,15 +8,15 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import LocalFloristIcon from "@material-ui/icons/LocalFlorist";
 import MemoryIcon from "@material-ui/icons/Memory";
-import React, { useState} from "react";
+import * as actions from '../../redux/actions/index';
 import { GiWheat } from "react-icons/gi";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-
 import { IconContext } from "react-icons/lib";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -32,7 +32,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
 import GreenButton from '../Buttons/Button';
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { connect } from 'react-redux';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -102,14 +104,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const mapStateToProps = state => {
+  return {
+      stillAuthenticated: state.auth.idToken == null
+      
+
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogout: () => dispatch(actions.logout())
+  };
+};
 
 
-export default function Skeleton() {
+
+
+const Skeleton= props => {
 
   const [visible, setVisible]= useState("Description");
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openn = Boolean(anchorEl);
+
+  const history = useHistory();
 
   const doClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -118,6 +137,15 @@ export default function Skeleton() {
   const doClose = () => {
     setAnchorEl(null);
   };
+
+  const doLogout = () => {
+    props.onLogout();
+    
+    history.push('/login');
+    
+  }
+
+  
  
 
   const classes = useStyles();
@@ -132,9 +160,23 @@ export default function Skeleton() {
     setOpen(false);
   };
   
+  const [fdetails, setfdetails] = useState([]);
+
+  useEffect(() => {
+    axios.get('https://jsonplaceholder.typicode.com/todos')
+    .then((result) => {
+       setfdetails(result.data.slice(0,3));
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }, [fdetails])
+
+ 
 
   return (
       <div className={classes.root}>
+         
         <CssBaseline />
         <AppBar
           position="fixed"
@@ -171,8 +213,12 @@ export default function Skeleton() {
                     <GreenButton 
                           onClick={doClick}
                           startIcon={<AccountCircleIcon />}
-                          text={"User"}
-                    />
+                          
+                    > User </GreenButton>
+                   
+                    <GreenButton onClick={doLogout}
+                          startIcon={<ExitToAppIcon />}
+                          > Logout </GreenButton>
                     <Menu
                         id="fade-menu"
                         anchorEl={anchorEl}
@@ -181,11 +227,10 @@ export default function Skeleton() {
                         onClose={doClose}
                         TransitionComponent={Fade}
                         >
-                        <MenuItem onClick={doClose}>Profile</MenuItem>
                         <MenuItem onClick={doClose}>My account</MenuItem>
-                        <Link to="/login" ><MenuItem className={style.menuLink} onClick={doClose}>Logout</MenuItem></Link>
+                        <MenuItem onClick={doClose}>Settings</MenuItem>
                       </Menu> 
-{/*                     
+                        {/*                     
                         <GreenButton className={style.navItem}
                           variant="contained"
                           color="primary"
@@ -251,7 +296,7 @@ export default function Skeleton() {
               {visible === "Description" && <Description/>}
           { visible === "Fields" &&
            <Grid container spacing={3}>
-            {FieldsData.map((item, key) => {
+            {fdetails.map((item, key) => {
               return (
                 <div key={key} className={style.fieldsCards}>
                   <FieldsCardlay data={item} />
@@ -276,3 +321,8 @@ export default function Skeleton() {
       </div>
     );  
 } 
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Skeleton);

@@ -5,7 +5,7 @@ import {
   ThemeProvider
 } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import { green } from "@material-ui/core/colors";
+import { green, red } from "@material-ui/core/colors";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
 
 const theme = createMuiTheme({
   palette: {
-    primary: green
+    primary: green,
+    secondary: red
   }
 });
 
@@ -31,9 +32,10 @@ export default function GreenButton({...props}) {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Button variant="contained" color="primary" className={`${classes.margin} ${classes.text} `}  type={props.type} startIcon={props.startIcon ? props.startIcon : null} onClick={props.onClick ? props.onClick : null} >{props.text} 
+        <Button variant="contained" color="primary" className={`${classes.margin} ${classes.text} `}  type={props.type} startIcon={props.startIcon ? props.startIcon : null} onClick={props.onClick ? props.onClick : null} >{props.children} 
         </Button>
       </ThemeProvider>
     </div>
   );
 }
+

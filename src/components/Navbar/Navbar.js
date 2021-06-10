@@ -1,22 +1,17 @@
 import React, { useState, useEffect} from "react";
-import { makeStyles } from '@material-ui/core/styles';
-
-import { Link } from "react-router-dom";
 import style from './Navbar.module.css';
 import { GiWheat } from "react-icons/gi";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import GreenButton from '../Buttons/Button'
-const useStyles = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(1),
-  },
-}));
+
+import { Link } from "react-router-dom";
 
 
-function Navbar() {
 
-  const classes = useStyles();
+const Navbar = () => {
+
+
   const [click, setClick] = useState(false);
   const [buttons, setButton] = useState(true);
 
@@ -49,7 +44,7 @@ function Navbar() {
             <div className={style.menuIcon} onClick={handleClick}>
               {click ? <FaTimes /> : <FaBars />}
             </div>
-            <ul className= {click ?  `${style.navMenu} ${style.active}`  : style.navMenu } >
+            <ul className= {click ?  style.navMenuActive  : style.navMenu } >
               <li className={style.navItem}>
                 <a href="#home" className={style.navLinks} onClick={closeMobileMenu}>
                   Home
@@ -66,8 +61,9 @@ function Navbar() {
                 </a>
               </li>
 
-              <li className={style.navBtn}>
-              <Link to= "/login" ><GreenButton text="Login" color="inherit"/>
+             <li className={style.navBtn}>
+                
+              <Link to= "/login" ><GreenButton color="inherit">Login</GreenButton>
               </Link>
               
               </li>
@@ -81,5 +77,9 @@ function Navbar() {
     </>
   );
 }
+
+
+
+
 
 export default Navbar;

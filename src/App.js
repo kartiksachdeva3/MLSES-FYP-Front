@@ -3,22 +3,27 @@ import "./App.css";
 // import { Grid } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignIn from "./pages/Auth/SignIn";
+import SignUp from "./pages/Auth/SignUp";
 import NoMatch from "./pages/NoMatch/NoMatch";
-import Navbar from "./components/Navbar/Navbar";
+import Home from "./pages/Home/Home";
 
-import HomePage from "./pages/Home/Home";
 import Dashboard from "./components/Skeleton/AppMenu";
 
-function App() {
+const app= () => {
   return (
     <Router>
-      <Navbar />
+      
       <Switch>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/login">
-          <SignIn />
+        <Route exact path="/">
+        <Home/>
         </Route>
-        <Route exact path="/dashboard" type="private">
+        <Route path="/login" >
+          <SignIn />
+         </Route>
+         <Route exact path="/signup" >
+          <SignUp />
+         </Route>
+        <Route exact path="/dashboard" >
           <Dashboard />
         </Route>
         <Route path="*">
@@ -29,4 +34,6 @@ function App() {
   );
 }
 
-export default App;
+
+
+export default app;

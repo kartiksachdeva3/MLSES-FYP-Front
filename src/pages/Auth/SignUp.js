@@ -1,93 +1,167 @@
 import React, { Component } from "react";
-import style from "./SignIn.module.css";
-import CustomInput from "../../components/CustomInput/CustomInput";
+import style from './SignUp.module.css';
+import Input from "../../components/CustomInput/Input";
 import GreenButton from "../../components/Buttons/Button";
-import { Redirect } from "react-router-dom";
+//import { Redirect } from "react-router-dom";
 
-export default class SignUp extends Component {
+
+class SignUp extends Component {
   state = {
-    email: "",
-    password: "",
-    isloggedin: false,
-    error: "",
-  };
+      user:{
+        name: {
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'Enter Name'
+            },
+            value: '',
+            validation: {
+                required: true
+            },
+            valid: false,
+            touched: false
+          },
+        email: {
+          elementType: 'input',
+          elementConfig: {
+              type: 'email',
+              placeholder: 'Enter Email'
+          },
+          value: '',
+          validation: {
+              required: true,
+              isEmail: true
+          },
+          valid: false,
+          touched: false
+      },
+      password: {
+          elementType: 'input',
+          elementConfig: {
+              type: 'password',
+              placeholder: 'Enter Password'
+          },
+          value: '',
+          validation: {
+              required: true,
+              minLength: 6
+          },
+          valid: false,
+          touched: false
+        },
+        phone: {
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'Enter Mobile Number'
+            },
+            value: '',
+            validation: {
+                required: true,
+                minLength: 10,
+                maxLength: 10,
+                isNumeric: true
+            },
+            valid: false,
+            touched: false
+          }
+      }
+  }
 
-  handlePasswordChange = event => {
-    this.setState({
-      password: event.target.value,
-    });
-  };
-  handleConfirmPassword = event => {
-    if (event.handleConfirmPassword !== event.handlePasswordChange) {
-      message.error('error');
+  checkValidity(value, rules) {
+    let isValid = true;
+    if (!rules) {
+        return true;
     }
-  };
-
-  handleChange = (e) => {
-    this.setState({ [e.currentTarget.id]: e.currentTarget.value });
-  };
-
-  handlesubmit = (event) => {
-    event.preventDefault();
-    console.log(this.state);
-    if (this.state.email === "admin" && this.state.password === "abcd") {
-      console.log("Authenticated");
-      this.setState({ isloggedin: true });
-    } else {
-      this.setState({ error: "Invalid Credentials" });
+    
+    if (rules.required) {
+        isValid = value.trim() !== '' && isValid;
     }
-  };
+
+    if (rules.minLength) {
+        isValid = value.length >= rules.minLength && isValid
+    }
+
+    if (rules.maxLength) {
+        isValid = value.length <= rules.maxLength && isValid
+    }
+
+    if (rules.isEmail) {
+        const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+        isValid = pattern.test(value) && isValid
+    }
+
+    if (rules.isNumeric) {
+        const pattern = /^\d+$/;
+        isValid = pattern.test(value) && isValid
+    }
+
+    return isValid;
+}
+
+inputChangedHandler = (event, userName) => {
+    const updateduser = {
+        ...this.state.user,
+        [userName]: {
+            ...this.state.user[userName],
+            value: event.target.value,
+            valid: this.checkValidity(event.target.value, this.state.user[userName].validation),
+            touched: true
+        }
+    };
+    this.setState({user: updateduser});
+}
+
+// submitHandler = (event) => {
+//      event.preventDefault();
+//      this.props.onAuth(this.state.user.name.value,this.state.user.email.value, this.state.user.password.value , this.state.user.phone.value);
+//  }
+
+
+
+ 
   render() {
-    if (this.state.isloggedin) {
-      return <Redirect to="/dashboard" />;
+    const formElementsArray = [];
+    for ( let key in this.state.user ) {
+        formElementsArray.push( {
+            id: key,
+            config: this.state.user[key]
+        } );
     }
+    
+    let form = formElementsArray.map( formElement => (
+      <Input
+          key={formElement.id}
+          elementType={formElement.config.elementType}
+          elementConfig={formElement.config.elementConfig}
+          value={formElement.config.value}
+          invalid={!formElement.config.valid}
+          shouldValidate={formElement.config.validation}
+          touched={formElement.config.touched}
+          changed={( event ) => this.inputChangedHandler( event, formElement.id )} />
+  ) );
+     
+   
+  
+
 
     return (
-      <div className={style.App}>
-        <form className={style.form} onSubmit={this.handlesubmit}>
-        <CustomInput
-            labelText="Name"
-            id="Name"
-            formControlProps={{
-              fullWidth: true,
-            }}
-            handleChange={this.handleChange}
-            type="text"
-          />
-          <CustomInput
-            labelText="Email"
-            id="email"
-            formControlProps={{
-              fullWidth: true,
-            }}
-            handleChange={this.handleChange}
-            type="text"
-          />
-          <CustomInput
-            labelText="Password"
-            id="password1"
-            formControlProps={{
-              fullWidth: true,
-            }}
-
-            handleChange={this.handlePasswordChange }
-            type="password"
-          />
-          <CustomInput
-            labelText="Confirm Password"
-            id="password2"
-            formControlProps={{
-              fullWidth: true,
-            }}
-            handleChange={this.handleConfirmPassword}
-            type="password"
-          />
-
-          <GreenButton text="Sign Up" type="submit" />
-            
+      <div className={style.form}>
+         
+        <form  >
+            <h3>Register</h3>
+              {form}
+          <GreenButton type="submit">Submit User</GreenButton>
         </form>
-        {this.state.error && <div>{this.state.error}</div>}
-      </div>
+
+        
+    </div>
     );
   }
 }
+
+
+
+
+
+export default SignUp;
