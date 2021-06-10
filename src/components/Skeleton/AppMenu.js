@@ -24,7 +24,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import style from "./AppMenu.module.css";
 import Description from "../ContentContainer/Description";
 
-import SensorData from "./SensorData";
+import SensorData from "../ContentContainer/Sensors";
 import FieldsCardlay from "../ContentContainer/Fields";
 
 import Grid from "@material-ui/core/Grid";
@@ -35,6 +35,16 @@ import GreenButton from '../Buttons/Button';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+  return {
+      loading: state.auth.loading,
+      isAuthenticated: state.auth.idToken !== null,
+      token: state.auth.idToken
+
+  };
+};
+
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -143,17 +153,32 @@ const Skeleton= props => {
   
   const [fdetails, setfdetails] = useState([]);
 
-  // const [sdetails, setsdetails] = useState([]);
-
+  const [sdetails, setsdetails] = useState([]);
+    axios.defaults.headers = 
+    {
+  'Content-Type': 'application/json',
+   Authorization: 'bearer ' + props.token
+    } 
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/todos')
+    axios.get('http://localhost:3001/api/user/fields/0')
     .then((result) => {
-       setfdetails(result.data.slice(0,3));
+       setfdetails(result.data);
     })
     .catch((err)=>{
       console.log(err)
     })
   }, [fdetails]) 
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/api/fields/0/values')
+    .then((result) => {
+       setsdetails(result.data);
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }, [sdetails]) 
+
 
   
  
@@ -297,8 +322,14 @@ const Skeleton= props => {
           </Grid>
           }
            {visible === "Sensors" && 
-            <Grid container spacing= {3}>
-              <SensorData />
+            <Grid container spacing= {3}>{sdetails.map((item, key) => {
+              return (
+                <div key={key} className={style.fieldsCards}>
+                  <SensorData data={item} />
+                </div>
+              );
+            })
+            }
         </Grid>
           }
         </main>
@@ -306,4 +337,4 @@ const Skeleton= props => {
     );  
 } 
 
-export default Skeleton;
+export default connect(mapStateToProps,null)(Skeleton);

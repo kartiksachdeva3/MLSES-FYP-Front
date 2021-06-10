@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-
+import {connect} from 'react-redux';
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SensorImage from "../../static/images/sensor.jpg";
 const useStyles = makeStyles((theme) => ({
@@ -38,6 +38,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 const SensorCardlay = ({ data }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
@@ -59,7 +61,7 @@ const SensorCardlay = ({ data }) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={data.sensorname}
+        title="Test Sensor 0"
         subheader={data.epoch}
       />
       <CardMedia className={classes.media} image={SensorImage} title="Sensor" />

@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const FieldsCardlay =({data}) => {
   const classes = useStyles();
   
@@ -57,7 +58,7 @@ const FieldsCardlay =({data}) => {
             <MoreVertIcon />
           </IconButton>
         }
-        //title={data.fieldname}
+        title={data.name}
         //subheader={data.epoch}
       />
       <CardMedia className={classes.media} image={FieldImage} title="Fields" />
@@ -70,10 +71,9 @@ const FieldsCardlay =({data}) => {
         >
           
         <ul>
-      <li> UserId : {data.userId}</li>
-       <li> Geolocation : {data.userId}</li>
-      <li> Time : {data.userId}</li>
-      <li> Network_Strength : {data.userId}</li>
+      <li> Field ID : {data.fid}</li>
+       <li> Geolocation : {data.Location}</li>
+      
       </ul>
          
          

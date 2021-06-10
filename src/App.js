@@ -6,7 +6,7 @@ import SignIn from "./pages/Auth/SignIn";
 import SignUp from "./pages/Auth/SignUp";
 import NoMatch from "./pages/NoMatch/NoMatch";
 import Home from "./pages/Home/Home";
-
+import Logout from './pages/Auth/Logout'
 import Dashboard from "./components/Skeleton/AppMenu";
 
 const app= () => {
@@ -25,6 +25,9 @@ const app= () => {
          </Route>
         <Route exact path="/dashboard" >
           <Dashboard />
+        </Route>
+        <Route exact path="/logout" >
+          <Logout />
         </Route>
         <Route path="*">
           <NoMatch />
