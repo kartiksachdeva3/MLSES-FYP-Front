@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { Redirect , useHistory } from "react-router-dom";
+import { Redirect , useHistory, Link } from "react-router-dom";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -23,10 +23,10 @@ import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
 import style from "./AppMenu.module.css";
 import Description from "../ContentContainer/Description";
-import SensorCardlay from "../ContentContainer/Sensors";
-import SensorData from "../../data/sensordummy.json";
+
+import SensorData from "./SensorData";
 import FieldsCardlay from "../ContentContainer/Fields";
-import FieldsData from "../../data/fieldsdummy.json";
+
 import Grid from "@material-ui/core/Grid";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -104,20 +104,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const mapStateToProps = state => {
-  return {
-      stillAuthenticated: state.auth.idToken == null
-      
-
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onLogout: () => dispatch(actions.logout())
-  };
-};
-
 
 
 
@@ -128,8 +114,6 @@ const Skeleton= props => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openn = Boolean(anchorEl);
 
-  const history = useHistory();
-
   const doClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -138,13 +122,10 @@ const Skeleton= props => {
     setAnchorEl(null);
   };
 
-  const doLogout = () => {
-    props.onLogout();
-    
-    history.push('/login');
-    
-  }
+  
 
+
+  
   
  
 
@@ -162,6 +143,8 @@ const Skeleton= props => {
   
   const [fdetails, setfdetails] = useState([]);
 
+  // const [sdetails, setsdetails] = useState([]);
+
   useEffect(() => {
     axios.get('https://jsonplaceholder.typicode.com/todos')
     .then((result) => {
@@ -170,7 +153,12 @@ const Skeleton= props => {
     .catch((err)=>{
       console.log(err)
     })
-  }, [fdetails])
+  }, [fdetails]) 
+
+  
+ 
+
+ 
 
  
 
@@ -216,9 +204,11 @@ const Skeleton= props => {
                           
                     > User </GreenButton>
                    
-                    <GreenButton onClick={doLogout}
+                   <Link to= "/logout">
+                   <GreenButton 
                           startIcon={<ExitToAppIcon />}
                           > Logout </GreenButton>
+                   </Link>
                     <Menu
                         id="fade-menu"
                         anchorEl={anchorEl}
@@ -306,15 +296,9 @@ const Skeleton= props => {
             }
           </Grid>
           }
-          {visible === "Sensors" && 
+           {visible === "Sensors" && 
             <Grid container spacing= {3}>
-              {SensorData.map((item, key) => {
-              return (
-                <div key={key} className={style.sensorCards}>
-                  <SensorCardlay data={item} />
-                </div>
-              );
-            })}
+              <SensorData />
         </Grid>
           }
         </main>
@@ -322,7 +306,4 @@ const Skeleton= props => {
     );  
 } 
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Skeleton);
+export default Skeleton;

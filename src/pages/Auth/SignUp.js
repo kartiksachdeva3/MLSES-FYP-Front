@@ -2,8 +2,24 @@ import React, { Component } from "react";
 import style from './SignUp.module.css';
 import Input from "../../components/CustomInput/Input";
 import GreenButton from "../../components/Buttons/Button";
-//import { Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import * as actions from '../../redux/actions/index';
+import {connect} from "react-redux";
+import Navbar from "../../components/Navbar/Navbar";
 
+
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.auth.idToken !== null
+
+    };
+ };
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: (name, email, password, phone) => dispatch(actions.signup(name, email, password, phone )),
+     };
+  }
 
 class SignUp extends Component {
   state = {
@@ -112,10 +128,10 @@ inputChangedHandler = (event, userName) => {
     this.setState({user: updateduser});
 }
 
-// submitHandler = (event) => {
-//      event.preventDefault();
-//      this.props.onAuth(this.state.user.name.value,this.state.user.email.value, this.state.user.password.value , this.state.user.phone.value);
-//  }
+ submitHandler = (event) => {
+      event.preventDefault();
+      this.props.onAuth(this.state.user.name.value,this.state.user.email.value, this.state.user.password.value , this.state.user.phone.value);
+  }
 
 
 
@@ -141,20 +157,33 @@ inputChangedHandler = (event, userName) => {
           changed={( event ) => this.inputChangedHandler( event, formElement.id )} />
   ) );
      
-   
+  let authRedirect= null;
+  let success = null;
+  if (this.props.isAuthenticated)
+  {
+        success ="User Registered Successfully"
+     authRedirect=<Redirect to="/dashboard" />
+    
+  } 
+
+
   
 
 
     return (
+        <div>
+
+        <Navbar/>
       <div className={style.form}>
          
-        <form  >
+        <form onSubmit={this.submitHandler} >
             <h3>Register</h3>
               {form}
-          <GreenButton type="submit">Submit User</GreenButton>
+              {success}
+          <GreenButton type="submit">Sign Up</GreenButton>
         </form>
-
-        
+        {authRedirect}
+        </div>
     </div>
     );
   }
@@ -164,4 +193,4 @@ inputChangedHandler = (event, userName) => {
 
 
 
-export default SignUp;
+export default connect(mapStateToProps,mapDispatchToProps)(SignUp);

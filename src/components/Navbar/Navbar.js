@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 
 
-const Navbar = () => {
+const Navbar = ({element}) => {
 
 
   const [click, setClick] = useState(false);
@@ -46,22 +46,22 @@ const Navbar = () => {
             </div>
             <ul className= {click ?  style.navMenuActive  : style.navMenu } >
               <li className={style.navItem}>
-                <a href="#home" className={style.navLinks} onClick={closeMobileMenu}>
+                <a href="/#home" className={style.navLinks} onClick={closeMobileMenu}>
                   Home
                 </a>
               </li>
               <li className={style.navItem}>
-                <a href="#Vision" className={style.navLinks}>
+                <a href="/#Vision" className={style.navLinks}>
                   Vision
                 </a>
               </li>
               <li className={style.navItem}>
-                <a href="#About" className={style.navLinks}>
+                <a href="/#About" className={style.navLinks}>
                   About
                 </a>
               </li>
 
-             <li className={style.navBtn}>
+             <li className={element=== 'login' ? `${style.navBtn} ${style.login}`: style.navBtn } >
                 
               <Link to= "/login" ><GreenButton color="inherit">Login</GreenButton>
               </Link>

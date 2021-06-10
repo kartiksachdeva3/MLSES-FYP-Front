@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import Spinner from "../../components/assets/Spinner/Spinner";
 import * as actions from '../../redux/actions/index';
 import { connect } from 'react-redux';
+import Navbar from "../../components/Navbar/Navbar";
 
 
 
@@ -156,46 +157,31 @@ submitHandler = (event) => {
     if (this.props.isAuthenticated)
     {
        authRedirect=<Redirect to="/dashboard" />
-    //    axios.defaults.headers = {
-    //     'Content-Type': 'application/json',
-    //     Authorization: 'bearer ' + this.props.token
-
-        
-    // }  
     
-     
-    // let url = 'http://localhost:3001/api/users'
-    // axios.get(url)
-    // .then(response => {
-    //     console.log(response);
-        
-        
-    // })
-    // .catch(err => 
-    //     {
-    //          console.log(err);
-        
-    // })
-    
-    // 
-}
+    }
   
 
     
 
     return (
-      <div className={style.form}>
-          
-         {authRedirect}
-        <form  onSubmit={this.submitHandler}>
-            <h3>Login</h3>
-              {form}
-          <GreenButton  type="submit">Login</GreenButton> 
-        </form>
+        <div>
+             <Navbar element='login' />
+        <div className={style.form}>
+            
+            
+            <form  onSubmit={this.submitHandler}>
+                <h3>Login</h3>
+                    {form}
+                <GreenButton  type="submit">Login</GreenButton> 
+            </form>
+            {authRedirect}
+    
+            <GreenButton onClick= {this.redirectSignUpHandler} type="submit">Sign Up</GreenButton>
+            
+        </div>
 
-        <GreenButton onClick= {this.redirectSignUpHandler} type="submit">Sign Up</GreenButton>
-       
-    </div>
+        </div>
+     
     );
   }
 }

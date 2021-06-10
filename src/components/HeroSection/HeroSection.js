@@ -37,7 +37,7 @@ function HeroSection({
                 <p
                   className={
                     lightTextDesc
-                      ? `${style.homeheroSubtitle} ${style.dark}` : style.homeheroSubtitle}
+                      ?  style.darkdesc : style.homeheroSubtitle}
                 >
                   {description}
                 </p>

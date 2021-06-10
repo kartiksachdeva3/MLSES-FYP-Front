@@ -94,6 +94,9 @@
   width: 100%;
   color: white;
 }
+.login{
+  display : none ;
+}
 @media screen and (max-width: 960px) {
   .navbarItems {
     position: relative;

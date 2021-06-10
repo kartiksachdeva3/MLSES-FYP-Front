@@ -8,10 +8,12 @@ export const authStart =() => {
     };
 };
 
-export const authSuccess = (idToken) => {
+export const authSuccess = (idToken, email, uid) => {
     return{
         type: actionTypes.AUTH_SUCCESS,
-        token: idToken
+        token: idToken,
+        _id: uid,
+        email: email
         
          
     };
@@ -30,6 +32,12 @@ export const logout = () => {
     };
 };
 
+export const checkSignup = (Email, Password) => {
+    return dispatch => {
+        dispatch(auth(Email,Password))
+    };
+};
+
 
 export const checkAuthTimeout = (expirationTime) => {
     return dispatch => {
@@ -38,6 +46,35 @@ export const checkAuthTimeout = (expirationTime) => {
         }, expirationTime * 10000);
     };
 };
+
+export const signup = (name,email,password, phone ) => {
+    return dispatch => {
+        dispatch(authStart());
+        const signData = {
+            name: name,
+            email : email,
+            password : password,
+            contactnumber: phone
+        };
+
+      
+        let url = 'http://localhost:3001/signup'
+        axios.post(url, signData)
+        .then(response => {
+            console.log(response);
+            dispatch(authSuccess(response.data.token, response.data.email, response.data._id));
+            dispatch(checkAuthTimeout(parseInt(response.data.expireIn)));
+            
+            
+        })
+        .catch(err => 
+            {
+               dispatch(authFail(err));
+            })
+    };
+};
+
+
 
 export const auth = (email, password ) => {
     return dispatch => {
@@ -52,7 +89,7 @@ export const auth = (email, password ) => {
         axios.post(url, authData)
         .then(response => {
             console.log(response);
-            dispatch(authSuccess(response.data.token));
+            dispatch(authSuccess(response.data.token, response.data.email, response.data._id));
             dispatch(checkAuthTimeout(parseInt(response.data.expireIn)));
             
         })
