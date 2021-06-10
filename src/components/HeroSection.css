@@ -50,7 +50,22 @@
   }
   
   .dark {
+<<<<<<< Updated upstream:src/components/HeroSection.css
     color: #1c2237;
+=======
+    color: #526E3E;
+  }
+  .darkdesc{
+    max-width: 440px;
+    margin-bottom: 30px;
+    font-size: 18px;
+    line-height: 24px;
+    color: #526E3E;
+  }
+
+  .lightBg{
+    background-color: white;
+>>>>>>> Stashed changes:src/components/HeroSection/HeroSection.module.css
   }
   
   .darkBg {
@@ -62,6 +77,7 @@
     margin-bottom: 35px;
     font-size: 18px;
     line-height: 24px;
+    color: whitesmoke;
   }
   
   .home__hero-img-wrapper {

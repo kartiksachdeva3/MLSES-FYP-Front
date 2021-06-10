@@ -9,9 +9,17 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",
+    "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
+<<<<<<< Updated upstream
     "react-scripts": "4.0.1"
     
+=======
+    "react-scripts": "4.0.1",
+    "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0",
+    "serve": "^11.3.2"
+>>>>>>> Stashed changes
   },
   "scripts": {
     "start": "react-scripts start",
