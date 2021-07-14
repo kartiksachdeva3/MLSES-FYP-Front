@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { Redirect , useHistory, Link } from "react-router-dom";
+import {Link } from "react-router-dom";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -23,10 +23,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
 import style from "./AppMenu.module.css";
 import Description from "../ContentContainer/Description";
-
-import SensorData from "../ContentContainer/Sensors";
+import SensorCardlay from "../ContentContainer/Sensors";
 import FieldsCardlay from "../ContentContainer/Fields";
-
 import Grid from "@material-ui/core/Grid";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -35,13 +33,16 @@ import GreenButton from '../Buttons/Button';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+import DialogActions from '@material-ui/core/DialogActions';
 
-const mapStateToProps = state => {
+const mapDispatchToProps = dispatch => {
   return {
-      loading: state.auth.loading,
-      isAuthenticated: state.auth.idToken !== null,
-      token: state.auth.idToken
-
+    onSensor: (sid, sname, rloc , fid) =>
+      dispatch(actions.sensorform(sid, sname, rloc , fid))
   };
 };
 
@@ -132,16 +133,26 @@ const Skeleton= props => {
     setAnchorEl(null);
   };
 
-  
+// Add sensor Start
+
+  const [sform, setSform] = useState({ sid: '', name: '', relativeLocation: '', fid: ''});
 
 
-  
-  
- 
+
+  const submitHandler = event => {
+    event.preventDefault();
+    props.onSensor(sform.sid, sform.name, sform.relativeLocation, sform.fid);
+    setShow(false);
+    //console.log(sform);
+  };
+
+// add sensor finish
 
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+
+  const [show, setShow] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -150,14 +161,24 @@ const Skeleton= props => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  
+
+  const handleClickOpen = () => {
+    setShow(true);
+  };
+
+  const handleClose = () => {
+    setShow(false);
+  };
+
+    
   const [fdetails, setfdetails] = useState([]);
 
   const [sdetails, setsdetails] = useState([]);
+
     axios.defaults.headers = 
     {
   'Content-Type': 'application/json',
-   Authorization: 'bearer ' + props.token
+   Authorization: 'bearer ' + localStorage.getItem('Jwt_token')
     } 
   useEffect(() => {
     axios.get('http://localhost:3001/api/user/fields/0')
@@ -169,7 +190,7 @@ const Skeleton= props => {
     })
   }, [fdetails]) 
 
-  useEffect(() => {
+ useEffect(() => {
     axios.get('http://localhost:3001/api/fields/0/values')
     .then((result) => {
        setsdetails(result.data);
@@ -178,10 +199,6 @@ const Skeleton= props => {
       console.log(err)
     })
   }, [sdetails]) 
-
-
-  
- 
 
  
 
@@ -214,15 +231,74 @@ const Skeleton= props => {
               <MenuIcon />
             </IconButton>
             <IconContext.Provider value={{ color: "#fff" }}>
-              <div className={ `${style.navbarContainer} ${style.container} `}>
-                <div className={style.navbarLogo} onClick={() => setVisible("Description")} >
-                  <GiWheat  className={style.navbarIcon} />
+              <div className={ `${style.appbarContainer} ${style.container} `}>
+                <div className={style.appbarLogo} onClick={() => setVisible("Description")} >
+                  <GiWheat  className={style.appbarIcon} />
                   MLSMES
                 </div>
                 
                   
-                  <div className={style.navMenu} >
-                     
+                  <div className={style.appMenu} >
+                    
+                    <GreenButton onClick={handleClickOpen} startIcon={<MemoryIcon/>}>
+                          Add Sensor
+                    </GreenButton>
+
+                    <Dialog open={show} onClose={handleClose} aria-labelledby="form-dialog-title">
+                                                            <DialogTitle id="form-dialog-title">Add Sensor</DialogTitle>
+                                                            <DialogContent>
+                                                              <TextField
+                                                                autoFocus
+                                                                margin="dense"
+                                                                id="sid"
+                                                                label="Sensor Id"
+                                                                value={sform.sid}
+                                                                type="text"
+                                                                onChange={(e) => setSform({ ...sform, sid: e.target.value })}
+                                                                fullWidth
+                                                              />
+                                                              <TextField
+                                                                autoFocus
+                                                                margin="dense"
+                                                                id="sname"
+                                                                label="Sensor Name"
+                                                                value={sform.name}
+                                                                type="text"
+                                                                onChange={(e) => setSform({ ...sform, name: e.target.value })}
+                                                                fullWidth
+                                                              />
+                                                              <TextField
+                                                                autoFocus
+                                                                margin="dense"
+                                                                id="rloc"
+                                                                label="Relative Location"
+                                                                value={sform.relativeLocation}
+                                                                type="text"
+                                                                onChange={(e) => setSform({ ...sform, relativeLocation: e.target.value })}
+                                                                fullWidth
+                                                              />
+                                                              <TextField
+                                                                autoFocus
+                                                                margin="dense"
+                                                                id="fid"
+                                                                label="Field Id"
+                                                                value={sform.fid}
+                                                                type="text"
+                                                                onChange={(e) => setSform({ ...sform, fid: e.target.value })}
+                                                                fullWidth
+                                                              />
+                                                            </DialogContent>
+                                                            <DialogActions>
+                                                              <GreenButton onClick={submitHandler} >
+                                                                Submit
+                                                              </GreenButton>
+                                                            </DialogActions>
+                                                          </Dialog>
+              
+
+          
+                    
+
                     <GreenButton 
                           onClick={doClick}
                           startIcon={<AccountCircleIcon />}
@@ -245,15 +321,7 @@ const Skeleton= props => {
                         <MenuItem onClick={doClose}>My account</MenuItem>
                         <MenuItem onClick={doClose}>Settings</MenuItem>
                       </Menu> 
-                        {/*                     
-                        <GreenButton className={style.navItem}
-                          variant="contained"
-                          color="primary"
-                          className={classes.button}
-                          startIcon={<SettingsIcon />}
-                        >
-                          Settings
-                        </GreenButton> */}
+                        
                   </div>
               </div>
             </IconContext.Provider>
@@ -321,20 +389,22 @@ const Skeleton= props => {
             }
           </Grid>
           }
-           {visible === "Sensors" && 
+            {visible === "Sensors" && 
             <Grid container spacing= {3}>{sdetails.map((item, key) => {
               return (
                 <div key={key} className={style.fieldsCards}>
-                  <SensorData data={item} />
+                  <SensorCardlay data={item} />
                 </div>
               );
             })
             }
         </Grid>
           }
+          
+
         </main>
       </div>
     );  
 } 
 
-export default connect(mapStateToProps,null)(Skeleton);
+export default connect(null,mapDispatchToProps)(Skeleton);

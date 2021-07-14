@@ -1,17 +1,12 @@
 export {
     auth,
     logout,
-    signup
+    signup,
+    authCheckState
 } from './authActions';
 
 export {
-    sen
+    sensorform
 } from './sensorActions';
 
-export{
-    userdata
-}from './userdataActions';
 
-export {
-    field
-} from './fieldAction'

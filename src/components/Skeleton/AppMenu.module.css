@@ -1,4 +1,4 @@
-.navbarContainer {
+.appbarContainer {
   display: flex;
   justify-content: space-between;
   height: 80px;
@@ -14,7 +14,7 @@
   padding-left: 50px;
 }
 
-.navbarLogo {
+.appbarLogo {
   color: #fff;
   justify-self: start;
   cursor: pointer;
@@ -24,11 +24,11 @@
   align-items: center;
 }
 
-.navbarIcon {
+.appbarIcon {
   margin-right: 0.5rem;
 }
 
-.navMenu {
+.appMenu {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,44 +37,6 @@
   text-align: center;
 }
 
-.navItem:hover {
-  height: 80px;
-  border-bottom: 2px solid #d5c2a5;
-}
-
-.navItem {
-  color: #fff;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  height: 100%;
-  border-bottom: 2px solid transparent;
-  font-size: 1rem;
-}
-.sideMenuContainer {
-  top: 90px;
-}
-
-.faBars {
-  color: #fff;
-}
-
-.menuIcon {
-  display: none;
-}
-.menuLink {
-  text-decoration: none;
-}
-.menuLink:hover {
-  text-decoration: greenyellow;
-}
-.sensorCardLayoutContainer {
-  display: flex;
-  /* flex-direction: column;
-    justify-content: center;
-    align-items: center; */
-}
 .sensorCards {
   padding: 5px 5px;
   margin: 5px 5px;
@@ -84,6 +46,14 @@
   right: 0;
   bottom: 0;
   z-index: 1;
+}
+.dialog{
+  width: 500px;
+  height: 500px;
+  display: grid;
+  position: relative;
+  z-index: 5
+ 
 }
 .fieldsCards {
   padding: 5px 5px;
@@ -95,7 +65,7 @@
   z-index: 1;
 }
 @media screen and (max-width: 960px) {
-  .NavbarItems {
+  .appbarItems {
     position: relative;
   }
 }

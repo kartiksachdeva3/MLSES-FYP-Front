@@ -7,7 +7,6 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import {connect} from 'react-redux';
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SensorImage from "../../static/images/sensor.jpg";
 const useStyles = makeStyles((theme) => ({
@@ -42,11 +41,9 @@ const useStyles = makeStyles((theme) => ({
 
 const SensorCardlay = ({ data }) => {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+ 
 
   return (
     <Card className={classes.root}>
@@ -78,27 +75,7 @@ const SensorCardlay = ({ data }) => {
           <li> Level 3 : {data.mlevel3}</li>
         </Typography>
       </CardContent>
-      {/* <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent></CardContent>
-      </Collapse> */}
+    
     </Card>
   );
 };

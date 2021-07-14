@@ -1,56 +1,44 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-export const senStart =() => {
+export const senforms =(sensorData) => {
     return {
-        type: actionTypes.SENSOR_START
+        type: actionTypes.SENSOR_ADDED,
+        sensorData: sensorData
     };
 };
 
-export const senSuccess = (sensor) => {
+export const senfail =() => {
     return{
-        type: actionTypes.SENSOR_SUCCESS,
-        SensorData: sensor
-        
-        
-         
-    };
-};
+        type: actionTypes.SENSOR_NOTADDED
+    }
+}
 
-export const senFail = (error) => {
-    return {
-        type: actionTypes.SENSOR_FAIL,
-        error: error
-    };
-};
-
-export const sen = (token) => {
+export const sensorform = (sid, name, relativeLocation , fid) => {
     return dispatch => {
-        dispatch(senStart());
+        const sensorData = {
+           sid: sid,
+           name: name,
+           relativeLocation: relativeLocation,
+           fid: fid
+        };
+
+        //console.log(sensorData);
 
         axios.defaults.headers = 
-                {
-                'Content-Type': 'application/json',
-                 Authorization: 'bearer ' + token
-                } 
-
-        axios.get('http://localhost:3001/api/fields/0')
-            .then( result => {
-                const fetchSensor = [] ;
-                for (let key in result.data){
-                    fetchSensor.push({
-                        ...result.data[key],
-                        id: key
-                    });
-                }
-                console.log(fetchSensor)
-                dispatch(senSuccess(fetchSensor))
+         {
+        'Content-Type': 'application/json',
+         Authorization: 'bearer ' + localStorage.getItem('Jwt_token')
+        } 
+        let url = 'http://localhost:3001/api/user/fields/sensor/save'
+        axios.post(url, sensorData)
+        .then(response => {
+            console.log(response);
+            dispatch(senforms(sensorData));
+        })
+        .catch(err => 
+            {
+               dispatch(senfail(err));
             })
-            .catch((err)=>{
-              console.log(err)
-              dispatch(senFail(err))
-            });
-          
     };
-};
-
+}

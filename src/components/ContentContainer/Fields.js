@@ -5,12 +5,9 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import FieldImage from "../../static/images/farm.jpg";
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
@@ -53,11 +50,6 @@ const FieldsCardlay =({data}) => {
             F
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
         title={data.name}
         //subheader={data.epoch}
       />
@@ -73,11 +65,8 @@ const FieldsCardlay =({data}) => {
         <ul>
       <li> Field ID : {data.fid}</li>
        <li> Geolocation : {data.Location}</li>
-      
       </ul>
-         
-         
-        </Typography>
+         </Typography>
       </CardContent>
     </Card>
     </React.Fragment>

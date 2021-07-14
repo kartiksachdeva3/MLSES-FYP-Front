@@ -6,13 +6,13 @@ import { createStore, applyMiddleware , compose, combineReducers} from 'redux';
 import "bootstrap/dist/css/bootstrap.min.css";
 import thunk from 'redux-thunk';
 import authReducer from './redux/reducers/authReducer';
-import userReducer from './redux/reducers/userDataReducer';
+
 
 const composeEnchancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-  auth : authReducer,
-  user: userReducer
+  auth : authReducer
+
 })
 
 const store = createStore(

@@ -21,8 +21,8 @@ const mapStateToProps = state => {
 
  const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password) => dispatch(actions.auth(email, password )),
-        forUser: (token) => dispatch(actions.userdata(token))
+        onAuth: (email, password) => dispatch(actions.auth(email, password ))
+       
     };
   }
 
@@ -113,10 +113,6 @@ submitHandler = (event) => {
     
  }
 
- getUserdata = () => {
-    this.props.forUser(this.props.token);
- }
-
  redirectSignUpHandler = () => {
     this.setState({ toSignUp: true });
        
@@ -154,7 +150,8 @@ submitHandler = (event) => {
     }
 
     let authRedirect= null;
-    if (this.props.isAuthenticated)
+    const checkToken = localStorage.getItem('Jwt_token');
+    if (checkToken)
     {
        authRedirect=<Redirect to="/dashboard" />
     
